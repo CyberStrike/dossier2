@@ -1,21 +1,27 @@
 <template>
   <div id="app">
     <div class="container-fluid">
-      <div class="row">
-        <nav id="nav" class="col-3 bg-primary">
+      <div class="row h-100">
+        <nav id="nav" class="col-1 bg-primary">
           <ul>
-            <router-link tag='li' to="/">Home</router-link>
+            <router-link tag='li' :to="{name: 'people'}">People</router-link>
             <router-link tag='li' to="/about">About</router-link>
           </ul>
         </nav>
-        <div class="col-3 bg-warning">People</div>
-        <div class="col bg-info">Info</div>
+        <div class="col">
+          <router-view></router-view>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss">
+html, body, #app, .container-fluid {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
