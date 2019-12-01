@@ -1,10 +1,17 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="container-fluid">
+      <div class="row">
+        <nav id="nav" class="col-3 bg-primary">
+          <ul>
+            <router-link tag='li' to="/">Home</router-link>
+            <router-link tag='li' to="/about">About</router-link>
+          </ul>
+        </nav>
+        <div class="col-3 bg-warning">People</div>
+        <div class="col bg-info">Info</div>
+      </div>
     </div>
-    <router-view/>
   </div>
 </template>
 
@@ -18,7 +25,7 @@
   color: #2c3e50;
 }
 
-#nav {
+nav {
   padding: 30px;
   a {
     font-weight: bold;
