@@ -2,10 +2,14 @@
   <div id="app">
     <div class="container-fluid">
       <div class="row h-100">
-        <nav id="nav" class="col-1 bg-primary">
-          <ul>
-            <router-link tag='li' :to="{name: 'people'}">People</router-link>
-            <router-link tag='li' to="/about">About</router-link>
+        <nav id="nav" class="col-1">
+          <ul class="nav flex-column">
+            <router-link tag='li' class="nav-item" :to="{name: 'people'}">
+              People
+            </router-link>
+            <router-link tag='li' class="nav-item" to="/about">
+              About
+            </router-link>
           </ul>
         </nav>
         <div class="col">
@@ -17,28 +21,32 @@
 </template>
 
 <style lang="scss">
-html, body, #app, .container-fluid {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
+  @import '/assets/base';
 
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+  html, body, #app, .container-fluid {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: $ddark6;
+  }
 
-nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
     color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+  }
+
+  nav {
+    padding: 30px;
+    background: $ddark6;
+    li, a {
+      font-weight: bold;
+      color: #eee;
+      &.router-link-exact-active {
+        color: #42b983;
+      }
     }
   }
-}
 </style>

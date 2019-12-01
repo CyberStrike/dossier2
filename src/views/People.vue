@@ -1,19 +1,20 @@
 <template>
   <div id="people" class="row h-100">
-    <div class="col-3 bg-warning">
+    <div class="col-3 p-0">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item bg-transparent"  v-for="(person, index) in paginatedSearch" :key="index">
+          <label>
+            <div class="media">
+              <img class="ml-3" :src="person.picture.thumbnail"/>
+              <div class="media-body">
+                <h5 class="mt-0 mb-1">{{ getName(person, true) }}</h5>
+              </div>
+            </div>
 
-      <div v-for="(person, index) in paginatedSearch" :key="index"
-           @click="$router.push({name: 'person', params: {id: person.login.md5}})">
-        <div>
-          <img :src="person.picture.thumbnail"/>
-        </div>
-
-        <div>
-         <div> {{ getName(person, true) }}</div>
-        </div>
-
-        <div>Info</div>
-      </div>
+            <input type="radio" :value="person.login.md5" v-model="personId">
+          </label>
+        </li>
+      </ul>
       <!--            <v-flex  v-show="!noResults" flex xs12 sm8 md5>-->
       <!--              <v-card>-->
       <!--                <v-list>-->
@@ -35,49 +36,10 @@
       <!--                </v-list>-->
       <!--              </v-card>-->
 
-<!--      <v-slide-x-transition>-->
-<!--        <v-container app fluid>-->
-<!--          <v-layout row align-center justify-center>-->
-<!--            <v-flex  v-show="!noResults" flex xs12 sm8 md5>-->
-<!--              <v-card>-->
-<!--                <v-list>-->
-<!--                  <v-list-tile avatar v-for="(person, index) in paginatedSearch" :key="index"-->
-<!--                               @click="$router.push({name: 'person', params: {id: person.login.md5}})">-->
-<!--                    <v-list-tile-avatar>-->
-<!--                      <img v-bind:src="person.picture.thumbnail"/>-->
-<!--                    </v-list-tile-avatar>-->
-
-<!--                    <v-list-tile-content>-->
-<!--                      <v-list-tile-title v-text="getName(person, true)"></v-list-tile-title>-->
-<!--                    </v-list-tile-content>-->
-
-<!--                    <v-list-tile-action>-->
-<!--                      <v-icon class="indigo&#45;&#45;text">info</v-icon>-->
-<!--                    </v-list-tile-action>-->
-
-<!--                  </v-list-tile>-->
-<!--                </v-list>-->
-<!--              </v-card>-->
-<!--              <div class="text-xs-center mt-4">-->
-<!--                <v-slide-x-transition>-->
-<!--                  <v-pagination v-show="hidePagination" :length="pageCount" :value="page" @input="current_page"></v-pagination>-->
-<!--                </v-slide-x-transition>-->
-<!--              </div>-->
-<!--            </v-flex>-->
-<!--            <v-flex v-show="noResults" xs12 sm6>-->
-<!--              <v-layout column text-xs-center empty-state-container align-center justify-center>-->
-<!--                <v-icon class="indigo&#45;&#45;text xx-large" >-->
-<!--                  sentiment_very_dissatisfied-->
-<!--                </v-icon>-->
-<!--                <h3>No one here.</h3>-->
-<!--              </v-layout>-->
-<!--            </v-flex>-->
-<!--          </v-layout>-->
-<!--        </v-container>-->
-<!--      </v-slide-x-transition>-->
-
     </div>
-    <div class="col bg-info">Info</div>
+    <div class="col bg-info">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -99,10 +61,20 @@ export default {
   },
   data: function () {
     return {
-      show: false
+      show: false,
+      id: null
     }
   },
   computed: {
+    personId: {
+      get () {
+        return this.id
+      },
+      set (id) {
+        this.id = id
+        this.$router.push({name: 'person', params: { id } })
+      }
+    },
     searchPeople () {
       return this.people
                  .filter(
@@ -148,3 +120,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  @import '../assets/base';
+
+  #people {
+    background: $ddark5;
+    color: #eee;
+  }
+</style>
