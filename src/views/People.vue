@@ -1,41 +1,9 @@
 <template>
   <div id="people" class="row h-100">
     <div class="col-3 p-0">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item bg-transparent"  v-for="(person, index) in paginatedSearch" :key="index">
-          <label>
-            <div class="media">
-              <img class="ml-3" :src="person.picture.thumbnail"/>
-              <div class="media-body">
-                <h5 class="mt-0 mb-1">{{ getName(person, true) }}</h5>
-              </div>
-            </div>
-
-            <input type="radio" :value="person.login.md5" v-model="personId">
-          </label>
-        </li>
-      </ul>
-      <!--            <v-flex  v-show="!noResults" flex xs12 sm8 md5>-->
-      <!--              <v-card>-->
-      <!--                <v-list>-->
-      <!--                  <v-list-tile avatar v-for="(person, index) in paginatedSearch" :key="index"-->
-      <!--                               @click="$router.push({name: 'person', params: {id: person.login.md5}})">-->
-      <!--                    <v-list-tile-avatar>-->
-      <!--                      <img v-bind:src="person.picture.thumbnail"/>-->
-      <!--                    </v-list-tile-avatar>-->
-
-      <!--                    <v-list-tile-content>-->
-      <!--                      <v-list-tile-title v-text="getName(person, true)"></v-list-tile-title>-->
-      <!--                    </v-list-tile-content>-->
-
-      <!--                    <v-list-tile-action>-->
-      <!--                      <v-icon class="indigo&#45;&#45;text">info</v-icon>-->
-      <!--                    </v-list-tile-action>-->
-
-      <!--                  </v-list-tile>-->
-      <!--                </v-list>-->
-      <!--              </v-card>-->
-
+      <paginator  v-slot="{ paged }" :source="searchPeople" :page="page" :per-page="per_page">
+        <people-list v-model="person" :people="paged" :selected="person"/>
+      </paginator>
     </div>
     <div class="col bg-info">
       <router-view/>
@@ -46,11 +14,14 @@
 <script>
 // @ is an alias to /src
 import { createNamespacedHelpers } from 'vuex'
-import { toTitleCase } from '@/utilities'
+import { toTitleCase }             from '@/utilities'
+import PeopleList                  from '@/components/PeopleList'
+import Paginator                   from '@/components/Paginator'
 const { mapGetters, mapActions } = createNamespacedHelpers('app')
 
 export default {
   name: 'People',
+  components: { Paginator, PeopleList },
   props: {
     page: Number,
     per_page: Number,
@@ -66,7 +37,7 @@ export default {
     }
   },
   computed: {
-    personId: {
+    person: {
       get () {
         return this.id
       },
@@ -76,14 +47,7 @@ export default {
       }
     },
     searchPeople () {
-      return this.people
-                 .filter(
-                   person =>  this.getName(person, false)
-                                  .toUpperCase().indexOf(this.query.toUpperCase()) >= 0
-                 )
-    },
-    paginatedSearch () {
-      return this.paginate(this.page, this.per_page, this.searchPeople)
+      return this.people.filter(person => this.getName(person, false).toUpperCase().indexOf(this.query.toUpperCase()) >= 0)
     },
     pageCount () {
       return Math.ceil(this.searchPeople.length / this.per_page)
@@ -112,12 +76,6 @@ export default {
   mounted: function () {
     this.show = true
   },
-  beforeUpdate: function () {
-    // Check if any records in paginated results
-    const invalidPageNumber = this.paginatedSearch.length <= 0
-    // If the page is out of range of the page size set to 1
-    if (invalidPageNumber) this.current_page(1);
-  }
 }
 </script>
 
@@ -127,5 +85,12 @@ export default {
   #people {
     background: $ddark5;
     color: #eee;
+  }
+  .list-group-item {
+    cursor: pointer;
+    background: $ddark5;
+    &:hover {
+      background: $ddark6;
+    }
   }
 </style>

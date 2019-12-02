@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="container-fluid">
-      <div class="row h-100">
+      <div class="row h-100 w-100 m-0">
         <nav id="nav" class="col-1">
           <ul class="nav flex-column">
             <router-link tag='li' class="nav-item" :to="{name: 'people'}">
@@ -47,6 +47,15 @@
       &.router-link-exact-active {
         color: #42b983;
       }
+    }
+  }
+
+  .virtual-input {
+    cursor: pointer;
+    input {
+      position: absolute;
+      clip: rect(0,0,0,0);
+      pointer-events: none;
     }
   }
 </style>

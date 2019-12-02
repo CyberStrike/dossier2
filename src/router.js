@@ -13,14 +13,14 @@ export default new Router({
         per_page: Number(per_page) || 10,
         query: s
       }),
-      component: () => import(/* webpackChunkName: "about" */ './views/People.vue'),
+      component: () => import(/* webpackChunkName: "People" */ './views/People.vue'),
       children: [
         {
           path: '/person/:id',
           name: 'person',
           props: ({ params: { id } }) => ({ id }),
-          
-          component: () => import(/* webpackChunkName: "about" */ './views/Person.vue'),
+
+          component: () => import(/* webpackChunkName: "Person" */ './views/Person.vue'),
         },
       ]
     },
