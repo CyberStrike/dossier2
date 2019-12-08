@@ -28,7 +28,7 @@
     },
     computed: {
       selectedPerson: {
-        get() { return this.selected },
+        get () { return this.selected },
         set (value) { this.$emit('change', value) }
       }
     },

@@ -1,5 +1,5 @@
-import Vue from "vue";
-import Router from "vue-router";
+import Vue from 'vue'
+import Router from 'vue-router'
 
 Vue.use(Router)
 
@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/',
       name: 'people',
-      props: ({query: {page, per_page, s}}) => ({
+      props: ({ query: { page, per_page, s } }) => ({
         page: Number(page) || 1,
         per_page: Number(per_page) || 10,
         query: s
@@ -20,8 +20,8 @@ export default new Router({
           name: 'person',
           props: ({ params: { id } }) => ({ id }),
 
-          component: () => import(/* webpackChunkName: "Person" */ './views/Person.vue'),
-        },
+          component: () => import(/* webpackChunkName: "Person" */ './views/Person.vue')
+        }
       ]
     },
     {

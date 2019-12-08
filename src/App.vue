@@ -2,7 +2,7 @@
   <div id="app">
     <div class="container-fluid">
       <div class="row h-100 w-100 m-0">
-        <nav id="nav" class="col-1">
+        <nav id="main" class="col-1">
           <ul class="nav flex-column">
             <router-link tag='li' class="nav-item" :to="{name: 'people'}">
               People
@@ -21,7 +21,7 @@
 </template>
 
 <style lang="scss">
-  @import '/assets/base';
+  @import '/assets/app';
 
   html, body, #app, .container-fluid {
     height: 100%;
@@ -38,14 +38,15 @@
     color: #2c3e50;
   }
 
-  nav {
+  nav#main {
     padding: 30px;
     background: $ddark6;
     li, a {
       font-weight: bold;
       color: #eee;
+      cursor: pointer;
       &.router-link-exact-active {
-        color: #42b983;
+        color: $primary;
       }
     }
   }

@@ -35,12 +35,12 @@
     },
     computed: {
       person: function () {
-        return this.people.filter(person => person.login.md5.indexOf(this.id) >= 0)[0]
+        return this.people.filter(person => 0 <= person.login.md5.indexOf(this.id))[0]
       },
       fullName: function () {
         return `${toTitleCase(this.person.name.title)}.  ${toTitleCase(this.person.name.first)} ${toTitleCase(this.person.name.last)}`
       },
-      ...mapGetters({people: 'people'})
+      ...mapGetters({ people: 'people' })
     },
     mounted: function () {
       // this.getNationality()
