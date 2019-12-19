@@ -43,17 +43,16 @@
       },
       visiblePages () {
         const range = this.range(this.length, 1)
-        const show = Math.floor((this.visible - 1) / 2 )
+        const show = Math.floor((this.visible - 1) / 2)
         const start = (() => {
           const resolve = this.current - (show + 1)
           const startOfRange = this.current <= show
           const endOfRange = Object.is(this.current, this.length)
           if (this.current <= show) return 0
           // End Of Range
-          if ( endOfRange || resolve >= this.length ) return  this.visible
+          if (endOfRange || resolve >= this.length) return this.visible
           return resolve
         })()
-
 
         const end = (() => {
           const resolve = this.current + show
@@ -62,14 +61,14 @@
           return resolve
         })()
 
-        console.log({start, end, range})
+        console.log({ start, end, range })
         // segment of pages
         return range.slice(start, end)
       }
     },
     methods: {
-       range(size, startAt = 0) {
-        return [...Array(size).keys()].map(i => i + startAt);
+      range (size, startAt = 0) {
+        return [...Array(size).keys()].map(i => i + startAt)
       },
       isCurrent (page) {
         return Object.is(this.current, page)
@@ -78,10 +77,31 @@
         if (arr.length === total.length) return arr
         return arr.slice((per * total) - total, total * per)
       },
-      selectPage(page) {
+      selectPage (page) {
         if (page === this.length) return
         this.$emit('page', page)
       }
     }
   }
 </script>
+<style>
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .current-page-input {
+    color: var(--primary);
+    box-sizing: content-box;
+    width: 26px;
+    height: 20px;
+    background: none;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px;
+    border-style: solid;
+    text-align: center;
+  }
+</style>

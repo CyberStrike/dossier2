@@ -40,7 +40,7 @@
 
   nav#main {
     padding: 30px;
-    background: $ddark6;
+    background: $dark;
     li, a {
       font-weight: bold;
       color: #eee;

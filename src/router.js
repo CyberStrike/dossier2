@@ -19,7 +19,6 @@ export default new Router({
           path: '/person/:id',
           name: 'person',
           props: ({ params: { id } }) => ({ id }),
-
           component: () => import(/* webpackChunkName: "Person" */ './views/Person.vue')
         }
       ]
